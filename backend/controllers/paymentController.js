@@ -98,7 +98,7 @@ const createPaymentOrder = async (req, res) => {
         customer_phone: phone,
       },
       order_meta: {
-        return_url: `${process.env.CLIENT_URL || "http://localhost:5500"}/checkout.html?localOrderId=${order._id}`,
+        return_url: `${process.env.CLIENT_URL || " https://bookshop-h0eo.onrender.com"}/checkout.html?localOrderId=${order._id}`,
         notify_url: `${process.env.SERVER_URL || ""}/api/payment/webhook`,
       },
     };

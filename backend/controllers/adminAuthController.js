@@ -54,7 +54,7 @@ const adminForgotPassword = async (req, res) => {
     admin.resetPasswordExpires = Date.now() + 30 * 60 * 1000;
     await admin.save();
 
-    const resetUrl = `${process.env.CLIENT_URL || "http://localhost:5500"}/admin-reset-password.html?token=${resetToken}&email=${encodeURIComponent(admin.email)}`;
+    const resetUrl = `${process.env.CLIENT_URL || " https://bookshop-h0eo.onrender.com"}/admin-reset-password.html?token=${resetToken}&email=${encodeURIComponent(admin.email)}`;
 
     await sendEmail({
       to: admin.email,

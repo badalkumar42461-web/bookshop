@@ -1,7 +1,7 @@
 // ============================================================
 // Central API configuration & fetch helper
 // ============================================================
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = " https://bookshop-h0eo.onrender.com/api";
 
 /**
  * Generic request helper. Automatically attaches the JWT (user or admin)
