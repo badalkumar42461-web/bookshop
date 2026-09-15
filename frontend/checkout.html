@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout | PageTurner Bookstore</title>
+<link rel="stylesheet" href="css/style.css" />
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">Page<span>Turner</span></a>
+    <div class="nav-links" id="navAuthArea"></div>
+  </div>
+</nav>
+
+<section class="container">
+  <h2 class="section-title" style="text-align:left">Checkout</h2>
+  <div id="checkoutAlert"></div>
+
+  <div id="verifyingBox" style="display:none;" class="empty-state">
+    <h3>Verifying your payment...</h3>
+    <p>Please wait, do not close this page.</p>
+  </div>
+
+  <div class="cart-layout" id="checkoutLayout">
+    <div>
+      <div class="table-wrap" style="padding:20px; margin-bottom:20px;">
+        <h3 style="margin-bottom:14px;">Items</h3>
+        <div id="checkoutItems">Loading...</div>
+      </div>
+
+      <div class="table-wrap" style="padding:20px;">
+        <h3 style="margin-bottom:14px;">Shipping Details</h3>
+        <div class="form-group">
+          <label>Full Address</label>
+          <textarea id="shippingAddress" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" id="phone" required />
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h3 style="margin-bottom:16px;">Order Summary</h3>
+      <div class="form-group">
+        <label>Coupon Code</label>
+        <div class="flex">
+          <input type="text" id="couponCode" placeholder="e.g. SAVE10" />
+          <button class="btn btn-outline btn-sm" id="applyCouponBtn" type="button">Apply</button>
+        </div>
+        <small id="couponMsg"></small>
+      </div>
+      <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">₹0.00</span></div>
+      <div class="summary-row"><span>Discount</span><span id="sumDiscount">-₹0.00</span></div>
+      <div class="summary-row total"><span>Total Payable</span><span id="sumTotal">₹0.00</span></div>
+      <button class="btn btn-accent btn-block mt-16" id="payBtn">Pay with Cashfree</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container"><p>&copy; 2026 PageTurner Bookstore. All rights reserved.</p></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>

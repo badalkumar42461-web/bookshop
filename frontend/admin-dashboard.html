@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard | PageTurner Bookstore</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="logo">Page<span>Turner</span></div>
+    <a href="#" class="nav-item active" data-section="dashboard"><span class="label">📊 Dashboard</span></a>
+    <a href="#" class="nav-item" data-section="books"><span class="label">📚 Books</span></a>
+    <a href="#" class="nav-item" data-section="orders"><span class="label">🧾 Orders</span></a>
+    <a href="#" class="nav-item" data-section="users"><span class="label">👤 Users</span></a>
+    <a href="#" class="nav-item" data-section="coupons"><span class="label">🏷️ Coupons</span></a>
+    <a href="#" class="nav-item" data-section="messages"><span class="label">✉️ Messages</span></a>
+    <button id="adminLogoutBtn"><span class="label">🚪 Logout</span></button>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h2 id="pageTitle">Dashboard</h2>
+      <div id="adminName" style="font-weight:600;color:var(--muted);"></div>
+    </div>
+
+    <div id="globalAlert"></div>
+
+    <!-- DASHBOARD -->
+    <section class="admin-section active" id="section-dashboard">
+      <div class="stat-cards">
+        <div class="stat-card"><div class="value" id="statUsers">0</div><div class="label">Total Users</div></div>
+        <div class="stat-card"><div class="value" id="statBooks">0</div><div class="label">Total Books</div></div>
+        <div class="stat-card"><div class="value" id="statOrders">0</div><div class="label">Total Orders</div></div>
+        <div class="stat-card"><div class="value" id="statRevenue">₹0</div><div class="label">Total Revenue</div></div>
+      </div>
+    </section>
+
+    <!-- BOOKS -->
+    <section class="admin-section" id="section-books">
+      <div class="admin-section-header">
+        <h3>Manage Books</h3>
+        <button class="btn btn-primary btn-sm" id="addBookBtn">+ Add New Book</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="booksTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section class="admin-section" id="section-orders">
+      <div class="admin-section-header"><h3>All Orders</h3></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th><th>Payment</th><th>Status</th><th>Date</th><th>Update</th></tr></thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- USERS -->
+    <section class="admin-section" id="section-users">
+      <div class="admin-section-header"><h3>Registered Users</h3></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- COUPONS -->
+    <section class="admin-section" id="section-coupons">
+      <div class="admin-section-header">
+        <h3>Manage Coupons</h3>
+        <button class="btn btn-primary btn-sm" id="addCouponBtn">+ Add New Coupon</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Min Order</th><th>Expiry</th><th>Used</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="couponsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MESSAGES -->
+    <section class="admin-section" id="section-messages">
+      <div class="admin-section-header"><h3>Contact Messages</h3></div>
+      <div id="messagesWrap"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Book Modal -->
+<div class="modal-overlay" id="bookModalOverlay">
+  <div class="modal">
+    <h3 id="bookModalTitle">Add New Book</h3>
+    <form id="bookForm">
+      <input type="hidden" id="bookId" />
+      <div class="form-group"><label>Title</label><input type="text" id="bookTitle" required /></div>
+      <div class="form-group"><label>Author</label><input type="text" id="bookAuthor" required /></div>
+      <div class="form-group"><label>Description</label><textarea id="bookDescription" rows="3"></textarea></div>
+      <div class="form-group"><label>Category</label><input type="text" id="bookCategory" placeholder="Fiction, Science, etc." /></div>
+      <div class="form-group"><label>Price (₹)</label><input type="number" id="bookPrice" min="0" step="0.01" required /></div>
+      <div class="form-group"><label>Discount Price (₹) - optional</label><input type="number" id="bookDiscountPrice" min="0" step="0.01" /></div>
+      <div class="form-group"><label>Stock Quantity</label><input type="number" id="bookStock" min="0" required /></div>
+      <div class="form-group"><label>Cover Image URL</label><input type="text" id="bookCoverImage" placeholder="https://..." /></div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="bookIsActive"><option value="true">Active (visible to customers)</option><option value="false">Inactive (hidden)</option></select>
+      </div>
+      <div class="flex" style="gap:10px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary btn-block">Save Book</button>
+        <button type="button" class="btn btn-outline" id="cancelBookModal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Coupon Modal -->
+<div class="modal-overlay" id="couponModalOverlay">
+  <div class="modal">
+    <h3 id="couponModalTitle">Add New Coupon</h3>
+    <form id="couponForm">
+      <input type="hidden" id="couponId" />
+      <div class="form-group"><label>Coupon Code</label><input type="text" id="couponCodeInput" placeholder="e.g. SAVE10" required /></div>
+      <div class="form-group">
+        <label>Discount Type</label>
+        <select id="couponDiscountType">
+          <option value="PERCENTAGE">Percentage (%)</option>
+          <option value="FLAT">Flat Amount (₹)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Discount Value</label><input type="number" id="couponDiscountValue" min="0" required /></div>
+      <div class="form-group"><label>Max Discount Amount (₹) - for percentage type</label><input type="number" id="couponMaxDiscount" min="0" /></div>
+      <div class="form-group"><label>Minimum Order Amount (₹)</label><input type="number" id="couponMinOrder" min="0" value="0" /></div>
+      <div class="form-group"><label>Usage Limit</label><input type="number" id="couponUsageLimit" min="1" value="100" /></div>
+      <div class="form-group"><label>Expiry Date</label><input type="date" id="couponExpiry" required /></div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="couponIsActive"><option value="true">Active</option><option value="false">Inactive</option></select>
+      </div>
+      <div class="flex" style="gap:10px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary btn-block">Save Coupon</button>
+        <button type="button" class="btn btn-outline" id="cancelCouponModal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- User Orders Modal -->
+<div class="modal-overlay" id="userOrdersModalOverlay">
+  <div class="modal" style="max-width:600px;">
+    <h3 id="userOrdersModalTitle">Order History</h3>
+    <div id="userOrdersContent"></div>
+    <button type="button" class="btn btn-outline btn-block mt-16" id="closeUserOrdersModal">Close</button>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

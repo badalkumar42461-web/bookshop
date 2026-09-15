@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Login | PageTurner Bookstore</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">Page<span>Turner</span> <small style="font-size:12px;color:var(--muted)">Admin</small></a>
+  </div>
+</nav>
+
+<div class="form-page">
+  <h2>Admin Login</h2>
+  <p class="subtitle">Restricted access for store administrators.</p>
+  <div id="adminLoginAlert"></div>
+  <form id="adminLoginForm">
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" required />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" required />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+  </form>
+  <div class="form-footer">
+    <a href="admin-forgot-password.html">Forgot Password?</a>
+  </div>
+  <div class="form-footer">
+    <a href="login.html">Back to customer login</a>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/admin-auth.js"></script>
+</body>
+</html>
